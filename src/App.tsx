@@ -1,24 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
-function App() {
+const App = () => {
+  const handleFbLogin = () => {
+    const FB = (window as any).FB;
+
+    FB.login((response: any) => {
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', (response: any) => {
+          console.log('Good to see you, ' + response.name + '.');
+        });
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div
+        className="login-container"
+      >
+        <button
+          onClick={handleFbLogin}
+          data-testid="fb-login-button"
         >
-          Learn React
-        </a>
-      </header>
+          Continue with Facebook
+        </button>
+      </div>
     </div>
   );
 }
