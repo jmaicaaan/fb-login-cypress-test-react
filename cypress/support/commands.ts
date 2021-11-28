@@ -23,3 +23,40 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// @ts-ignore
+Cypress.Commands.add('loginByFacebook', (
+  status: 'connected' | 'not_authorized' | 'unknown' = 'connected'
+) => {
+  return cy.window().then((win) => {
+    const callbackResult = {
+      ...status === 'connected' && {
+        status: 'connected',
+        authResponse: {
+          accessToken: 'test_fbAccessToken',
+        },
+      },
+      ...status === 'not_authorized' && {
+        status: 'not_authorized',
+      },
+      ...status === 'unknown' && {
+        status: 'unknown',
+      },
+    };
+    // @ts-ignore
+    if (!win.FB) {
+      return;
+    }
+
+    // @ts-ignore
+    win.FB = {
+      // @ts-ignore
+      ...win.FB,
+      login: (callback: (response: unknown) => {}) => {
+        callback(callbackResult);
+      },
+    }
+  });
+});
+
+console.log('Cypress.Commands', Cypress.Commands);
