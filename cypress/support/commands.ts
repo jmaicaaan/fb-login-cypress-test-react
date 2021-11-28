@@ -53,7 +53,13 @@ Cypress.Commands.add('loginByFacebook', (
       // @ts-ignore
       ...win.FB,
       login: (callback: (response: unknown) => {}) => {
-        callback(callbackResult);
+        /**
+         * Customized delay to fake the execution of this function
+         * Make it look like it is requesting from a third party
+         */
+        setTimeout(() => {
+          callback(callbackResult);
+        }, 3000);
       },
     }
   });

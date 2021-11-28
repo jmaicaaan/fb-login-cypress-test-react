@@ -10,6 +10,8 @@ describe('fb social login', () => {
       cy.get('[data-testid="fb-login-button"]')
         .should('be.enabled')
         .click();
+
+      // assert
       cy.location('pathname').should('eq', '/home');
     });
   });
@@ -21,7 +23,11 @@ describe('fb social login', () => {
       cy.get('[data-testid="fb-login-button"]')
         .should('be.enabled')
         .click();
-      cy.location('pathname').should('eq', '/');
+
+      // assert
+      cy.get('#toast')
+        .should('be.visible'); 
+      cy.location('pathname').should('eq', '/');      
     });
   });
 });

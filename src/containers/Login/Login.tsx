@@ -11,8 +11,6 @@ import { useToast } from '@chakra-ui/react';
 
 import { FaFacebook } from 'react-icons/fa';
 
-import { delay } from '../../utils/delay';
-
 export const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -28,12 +26,6 @@ export const Login = () => {
   const handleFbLogin = async () => {
     setIsSubmitting(true);
     const FB = (window as any).FB;
-
-    /**
-     * Customized delay to fake the execution of this function
-     * Make it look like it is requesting from a third party
-     */
-    await delay();
 
     FB.login((response: any) => {
       if (response.authResponse) {

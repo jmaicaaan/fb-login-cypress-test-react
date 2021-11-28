@@ -15,6 +15,7 @@ describe('login', () => {
     cy.get('[data-testid="login-button"]')
       .click();
 
+    // assert
     cy.location('pathname').should('eq', '/home');
   });
 });
