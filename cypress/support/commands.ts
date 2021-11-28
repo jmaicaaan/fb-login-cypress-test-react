@@ -58,5 +58,3 @@ Cypress.Commands.add('loginByFacebook', (
     }
   });
 });
-
-console.log('Cypress.Commands', Cypress.Commands);
