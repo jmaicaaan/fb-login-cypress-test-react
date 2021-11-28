@@ -1,37 +1,20 @@
 import React from 'react';
 
-import './App.css';
+import {
+  Route,
+  Routes,
+} from 'react-router';
 
-const App = () => {
-  const handleFbLogin = () => {
-    const FB = (window as any).FB;
+import { Home } from './containers/Home';
+import { Login } from './containers/Login';
 
-    FB.login((response: any) => {
-      if (response.authResponse) {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', (response: any) => {
-          console.log('Good to see you, ' + response.name + '.');
-        });
-      } else {
-        console.log('User cancelled login or did not fully authorize.');
-      }
-    });
-  };
-
-  return (
-    <div className="App">
-      <div
-        className="login-container"
-      >
-        <button
-          onClick={handleFbLogin}
-          data-testid="fb-login-button"
-        >
-          Continue with Facebook
-        </button>
-      </div>
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="home" element={<Home />} />
+    </Routes>
+  </div>
+);
 
 export default App;
